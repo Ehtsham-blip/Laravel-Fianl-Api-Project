@@ -24,18 +24,26 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 Route::prefix('user')->controller(UserController::class)->group(function () {
+                 // Signup Route 
     Route::post('/register', [UserController::class,'add']);
+                // Email Verification Route 
     Route::get('/verfiy/{hash}',[UserController::class,'verfiyEmail'])->name("verfiy");
+                // Login Route 
     Route::post('/login', [UserController::class,'login']);
+                //  Forgot Password Route 
     Route::post('/forgot', [UserController::class,'forgot'])->name('forgot');
+                // Forgot Password Link Route 
     Route::get('/reset-password/{token}', function ($token) {
-
         return response()->pfResponce($token,"change password now with this token ",200);
     })->name('password.reset');
-    Route::post('/resetpassword', [UserController::class,'restPassword'])->name('password.update');
+                //  Reset Password Route 
+    Route::post('/resetpassword', [UserController::class,'resetPassword'])->name('password.update');
+                //   Update Profile Route 
     Route::post('/update', [UserController::class,'update'])->middleware(VerifyUser::class)->name('user.update');
-    Route::post('/logout', [UserController::class,'logout'])->middleware(VerifyUser::class)->name('user.logout');
+                // Profile View Route 
     Route::get('/profile', [UserController::class,'profile'])->middleware(VerifyUser::class)->name('profile');
+                // Logout Route 
+    Route::post('/logout', [UserController::class,'logout'])->middleware(VerifyUser::class)->name('user.logout');
 });
 
 

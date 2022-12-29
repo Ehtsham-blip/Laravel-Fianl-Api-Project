@@ -22,6 +22,7 @@ class SignupUserRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+                        // All input validation
     public function rules()
     {
         return [
@@ -42,15 +43,15 @@ class SignupUserRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+             //  Function return validation error messages 
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
             'errors' => $validator->errors(),
           ], 422));
     }
-
+         // Custom message against validation error message
     public function messages()
-
     {
         return [
             'name.required' => 'Name is required',
@@ -65,7 +66,7 @@ class SignupUserRequest extends FormRequest
             'dob.date' => 'Follow YYYY-MM-DD format for DOB', 
         ];
     }
-
+     // filter request before checking validation
     public function filters()
     {
         return [
